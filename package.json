@@ -1,0 +1,15 @@
+{
+  "name": "tdd",
+  "version": "1.0.0",
+  "description": "A sesion about TDD - Test DReieven Development in JavaScript using Jest",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node calculate.js"
+  },
+  "author": "Abudi Mutamba",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^27.0.6"
+  }
+}
