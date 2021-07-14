@@ -1,4 +1,4 @@
-const {evaluation, person, fetchData} =  require('./matchers')
+const {evaluation, person, fetchData} =  require('../../matchers')
 
 //Using toBe on Person 
 test('person.firstname toBe David', () => {
