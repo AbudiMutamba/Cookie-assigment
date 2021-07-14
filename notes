@@ -1,0 +1,18 @@
+Test best practices
+-------------------
+Organising tests
+-------------------
+1. It's a good practice to Organising tests
+2. We can put the tests in a directory names tests. If the dirctory doesn't exist in our project we can create it and jesr will automatically find it.
+3. Each file with the name *.test.js or *.test.ts is reffered to a test suite and each of such a file should be moved to tests directory.
+4. We can further subdivide the tests directory into int and unit subdirectories to represent integration and unit tests respectively.
+5. To run all the test suites we run npm test.
+6. To run/execute a specific test suite we use the npm test -- tests/subdirectory/test suite file e.g: npm test -- tests/int/api to perform api integration tests using the tests/int/api.test.js test suite npm test  -- tests/int/api.test.js test suite 
+
+* What is a unit test?
+Is a verification of the functionality of the particular unit in code or program. This commonly refers to testing a particular function.
+
+* What is an integration test?\
+Is a verification of the functionality of different units or functions that depend on each other. This commonly refers to testing two or more functions that rely/depend on each other.
+
+* There are many other tests especially e2e or end or ui test, acceptance tests etc.
