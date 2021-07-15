@@ -5,7 +5,7 @@ let handleName = (name) => {
     //Check if the nameChucks is an object which is also an array in JavaScript and return out of the code
     if(typeof nameChunks === 'object' && nameChunks.length > 1) return false
 
-    //Use dtring.charAt(index) to grt the first letter of the string which is name
+    //Use string.charAt(index) to get the first letter of the string which is name
     //Then chain to UpperCase() to convert the given letter to uppercase
     let firstLetterToUpperCase = nameChunks[0].charAt(0).toUpperCase()
 
