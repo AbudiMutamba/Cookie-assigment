@@ -5,10 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events and Forms Day 1</title>
+    <style>
+        #erro-msg{
+            color:#f00;
+            display: none;
+        }
+    </style>
 </head>
 <body> 
     <label for="messege">messege</label>
-    <input onfocus="notify()" type="text" id="messege" placeholder="Enter your messege"/>
+    <!-- <input onfocus="notify()" type="text" id="messege" placeholder="Enter your messege"/> -->
+    <!-- <input onclick="notify()" type="text" id="messege" placeholder="Enter your messege"/> -->
+    <!-- <input 
+        onblur="pickInfo(event)" 
+        type="text" 
+        id="messege" 
+        placeholder="Enter your messege"
+    /> -->
+    <input
+        type="text" 
+        id="messege" 
+        placeholder="Enter your messege"
+    />
+    
+    <p id="erro-msg">Make sure your input is correct</p>
     <script src="src/script.js"></script>
 </body>
 </html>
