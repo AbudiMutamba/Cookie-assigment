@@ -1,17 +1,27 @@
 
 const TABLE_DATA = document.querySelector('#table-data')
 const PAGINATION = document.querySelector('#pagination')
-const PER_PAGE = document.querySelector('#per_page')
+let PER_PAGE = document.querySelector('#per_page')
 
-document.body.addEventListener('click', (event) => { //Eveny delegation
+let per_page = parseInt(PER_PAGE.value) || 10;
+
+PER_PAGE.onblur = () => {
+  per_page = parseInt (PER_PAGE.value);
+  retrieveWithPagination (1, per_page);
+}
+
+document.body.onclick = (event) => {
+// document.body.addEventListener('click', (event) => { //Eveny delegation
     // console.log(event.target.dataset.page)
     if (event.target.dataset.page){
         let { page } = event.target.dataset;
-        let per_page = 10;
-        retrieveWithPagination(page)
+        per_page = parseInt(document.querySelector("#per_page").value) || per_page;
+        // let per_page = 10;
+        // retrieveWithPagination(page)
         //console.log(page)
+        retrieveWithPagination(page, per_page)
     }
-})
+}//)
 
 /**
  * Read this resource https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
@@ -30,7 +40,7 @@ let retrieveWithPagination = (page = 1, numberOfItemsPerPage = 10) => {
 
         // console.log(json.length)
         // Generate pagination
-        let numberOfItemsPerPage = 10;
+        // let numberOfItemsPerPage = 10;
         const MAX_PAGES = Math.floor(json.length / numberOfItemsPerPage);
         let START_POSITION = (page - 1) * numberOfItemsPerPage;
         
@@ -40,9 +50,10 @@ let retrieveWithPagination = (page = 1, numberOfItemsPerPage = 10) => {
 
         while (i <= MAX_PAGES) {
             //Generate buttons
-            buttons += `<button data-page="${i}" >${i}<button>`
+            buttons += `<button data-page="${i}" >${i}</button>`
             i++;
         }
+
       }).then(() => {
 
         if (todos && todos.length > 0) {
@@ -71,8 +82,8 @@ let retrieveWithPagination = (page = 1, numberOfItemsPerPage = 10) => {
               `;// Explain this block of code
            })
            .then(() =>{
-                TABLE_DATA.innerHTML += generatedTableRows;
-                PAGINATION.innerHTML
+                TABLE_DATA.innerHTML = generatedTableRows;
+                PAGINATION.innerHTML = buttons
            })
            .catch((err) => console.log(err));
         });
