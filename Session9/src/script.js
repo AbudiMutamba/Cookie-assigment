@@ -1,12 +1,13 @@
 
 const TABLE_DATA = document.querySelector('#table-data')
 const PAGINATION = document.querySelector('#pagination')
-let generatedTableRows = ''
+const PER_PAGE = document.querySelector('#per_page')
 
 document.body.addEventListener('click', (event) => { //Eveny delegation
     // console.log(event.target.dataset.page)
     if (event.target.dataset.page){
         let { page } = event.target.dataset;
+        let per_page = 10;
         retrieveWithPagination(page)
         //console.log(page)
     }
@@ -20,8 +21,8 @@ document.body.addEventListener('click', (event) => { //Eveny delegation
 
 let todos = []
 
-let retrieveWithPagination = (page = 1) => {
-    let buttons = "";
+let retrieveWithPagination = (page = 1, numberOfItemsPerPage = 10) => {
+    let buttons = "", generatedTableRows = "";
 
      fetch("https://jsonplaceholder.typicode.com/todos")
       .then((response) => response.json())
@@ -31,12 +32,13 @@ let retrieveWithPagination = (page = 1) => {
         // Generate pagination
         let numberOfItemsPerPage = 10;
         const MAX_PAGES = Math.floor(json.length / numberOfItemsPerPage);
-        let index = page;
+        let START_POSITION = (page - 1) * numberOfItemsPerPage;
         
-        todos = json.slice(index - 1, numberOfItemsPerPage);
+        todos = json.slice(START_POSITION).slice(0, numberOfItemsPerPage);
+
         let i = 1;
 
-        while (i < MAX_PAGES) {
+        while (i <= MAX_PAGES) {
             //Generate buttons
             buttons += `<button data-page="${i}" >${i}<button>`
             i++;
