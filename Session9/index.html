@@ -9,6 +9,32 @@
 </head>
 <body>
     <section class="container">
+        <h1>Add To Do</h1>
+        <div id="todo-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+            <strong>Viola!</strong> Todo added
+            <span id="todo-id"></span>
+            <button type="button" class="btn-close" data-bs-dimiss="alert" aria-label="Close">
+            </button>       
+         </div>
+        <form novalidate id="new-todo" class="needs-validation" action="/todos/add" method="post" >
+            <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input 
+                    class="form-control"
+                    type="test"
+                    placeholder="Enter Title"
+                    id="title"
+                    required
+                />
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a valid title
+                </div>               
+            </div>
+            <button type="submit" class ="btn btn-success">Save Todo</button>
+        </form>
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -19,7 +45,7 @@
             </tr>
             </thead>
             <tbody id="table-data">
-               loading
+               <span>loading</span>
             </tbody>
             <tfoot>
             <tr>
