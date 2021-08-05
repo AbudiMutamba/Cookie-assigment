@@ -78,6 +78,12 @@ let retrieveWithPagination = (page = 1, numberOfItemsPerPage = 10) => {
                   <td>${title}</td>
                   <td>${completed ? "Completed" : "Incomplete"}
                   </td>
+                  <td>
+                    <div 
+                      class="btn-group" role="group" aria-label="Basic example">
+                      <button onClick="todoDelete(${id})" class="btn btn-danger">Delete</button>
+                      <button onClick="todoEdit(${id})" class="btn btn-info">Edit</button>
+                    </div>
                </tr>
               `;// Explain this block of code
            })
@@ -106,7 +112,7 @@ if (TODO_FORM != 'undefined') {
     if(!validate(title)) {
       return
     }
-    
+
        sendTodoToAPI(title)
   })
 }
@@ -119,7 +125,7 @@ let sendTodoToAPI = (title) => {
       userId: 1,
     }),
     headers: {
-      "Content-type": 'application/json; charset=UTF-8',
+      'Content-type': 'application/json; charset=UTF-8',
     },
   })
   .then(response => response.json())
@@ -127,12 +133,37 @@ let sendTodoToAPI = (title) => {
     let {id} = json
     if(id) {
       TODO_FORM.reset()
-      document.getElementById('todo-id').innerText = id
-      document.getElementById('todo-alert').classList.remove('d-none').add('d-block')
+     // TODO_FORM.classList.add('was-validated')
+      document.getElementById('todo-id').innerHTML = id
+      //document.getElementById('title').value = ''
+      document.getElementById('todo-alert').classList.
+      remove('d-none').add('d-block')
     }
   })
   .catch(error => console.log(error))
 };
+
+let todoDelete = todoID => {
+  let confirmation = confirm(`Are you sure you want to delete item #${todoID}`)
+  if(!confirmation) return
+  //console.log(confirmation)
+
+  fetch(`https://jsonplaceholder.typicode.com/todos/${todoID}`, {
+   method: 'DELETE',
+  })
+    .then((response) => response.json())
+    .then((json) => retrieveWithPagination())
+    //.then((json) => console.log(json))
+    .catch((error) => console.log(error));
+}
+
+let todoEdit = todoID => {
+  /**
+   * 
+   */
+  console.log(todoID)
+}
+
 
 function validate(title) {
   return (title == 'undefined' || title.length < 3 ) ? false : true
