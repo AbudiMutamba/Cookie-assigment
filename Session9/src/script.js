@@ -255,7 +255,7 @@ let todoEdit = todoID => {
 
          TODO_EDIT_FORM != null && EDIT_FORM_HOLDER.removeChild(TODO_EDIT_FORM);
 
-         EDIT_FORM_HOLDER.appendChild(form) != null
+         EDIT_FORM_HOLDER.appendChild(form) 
      
 
        form.onsubmit = (event) => {
