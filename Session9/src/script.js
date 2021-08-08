@@ -173,7 +173,7 @@ let todoEdit = todoID => {
 
      if(id) {
        let form = document.createElement("form");  //form
-       form.id = "todos-edit-form";
+       form.id = "todo-edit-form";
        form.classList.add("needs-validation");
        form.method = "post";
 
@@ -253,9 +253,9 @@ let todoEdit = todoID => {
        form.appendChild(statusElement);
        form.appendChild(submitBtn);
 
-         TODO_EDIT_FORM !== null && EDIT_FORM_HOLDER.removeChild(TODO_EDIT_FORM);
+         TODO_EDIT_FORM != null && EDIT_FORM_HOLDER.removeChild(TODO_EDIT_FORM);
 
-         EDIT_FORM_HOLDER.appendChild(form) != null;
+         EDIT_FORM_HOLDER.appendChild(form) != null
      
 
        form.onsubmit = (event) => {
