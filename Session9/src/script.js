@@ -42,7 +42,7 @@ let retrieveWithPagination = (page = 1, numberOfItemsPerPage = 10) => {
         // Generate pagination
         // let numberOfItemsPerPage = 10;
         const MAX_PAGES = Math.floor(json.length / numberOfItemsPerPage);
-        let START_POSITION = (page - 1) * numberOfItemsPerPage;
+        const START_POSITION = (page - 1) * numberOfItemsPerPage;
         
         todos = json.slice(START_POSITION).slice(0, numberOfItemsPerPage);
 
@@ -158,10 +158,139 @@ let todoDelete = todoID => {
 }
 
 let todoEdit = todoID => {
+    const EDIT_FORM_HOLDER = document.querySelector('#editFormHolder')
+    const TODO_EDIT_FORM = document.querySelector('#todo-edit-form') || null
   /**
-   * 
+   * How to update
+   * [X]1. Click the Edit button. To retrive the item to be update
+   * [X]2. If the item exits, display the item editable detials in a form.
+   * [X]3. Send the update/changes back to the API.
    */
-  console.log(todoID)
+   fetch(`https://jsonplaceholder.typicode.com/todos/${todoID}`)
+   .then((response) => response.json())
+   .then((json) => {
+     let {id, userId, title, completed} = json
+
+     if(id) {
+       let form = document.createElement("form");  //form
+       form.id = "todos-edit-form";
+       form.classList.add("needs-validation");
+       form.method = "post";
+
+       let titleElement = document.createElement("div");
+       titleElement.classList.add("my-3");
+       let titleLabel = document.createElement("label");  //<label></label>
+       let titleLabelText = document.createTextNode("Title");
+       titleLabel.appendChild(titleLabelText); //<label></label>
+
+       let inputForTitle = document.createElement("input");
+       inputForTitle.classList.add("form-control");
+       inputForTitle.id = "title";
+       inputForTitle.type = "text";
+       inputForTitle.value = "title";
+       titleElement.appendChild(titleLabel);
+       titleElement.appendChild(inputForTitle);
+
+       let statusElement = document.createElement("div");
+       statusElement.classList.add("my-3");
+       let statusHeading = document.createElement("h3");
+       let statusLabelHeadingText =document.createTextNode("Completed?");
+       statusHeading.appendChild(statusLabelHeadingText);
+
+       let yesRadioElement = document.createElement("div");
+       yesRadioElement.classList.add("form-check");
+       yesRadioElement.classList.add("form-check-inline");
+
+       let yesRadioInput =document.createElement("input");
+       yesRadioInput.type = "radio";
+       yesRadioInput.classList.add("form-check-input");
+       yesRadioInput.name = "todostatus";
+       yesRadioInput.id = "yes";
+       yesRadioInput.value = 1;
+       yesRadioInput.checked = completed && true;
+
+       let yesRadioLabel = document.createElement("label");
+       let yesRadioLabelText = document.createTextNode("Yes");
+       yesRadioLabel.appendChild(yesRadioLabelText);
+       yesRadioLabel.htmlFor = "yes";
+
+       yesRadioElement.appendChild(yesRadioInput);
+       yesRadioElement.appendChild(yesRadioLabel);
+
+       
+       let noRadioElement = document.createElement("div");
+       noRadioElement.classList.add("form-check");
+       noRadioElement.classList.add("form-check-inline");
+
+       let noRadioInput = document.createElement("input");
+       noRadioInput.type = "radio";
+       noRadioInput.classList.add("form-check-input");
+       noRadioInput.name = "todostatus";
+       noRadioInput.id = "no";
+       noRadioInput.value = 0;
+       noRadioInput.checked = !completed && true;
+
+       let noRadioLabel = document.createElement("label");
+       let noRadioLabelText = document.createTextNode("No");
+       noRadioLabel.appendChild(noRadioLabelText);
+       noRadioLabel.htmlFor = "no";
+
+       noRadioElement.appendChild(noRadioInput);
+       noRadioElement.appendChild(noRadioLabel);
+
+       statusElement.appendChild(statusHeading);
+       statusElement.appendChild(yesRadioLabel);
+       statusElement.appendChild(noRadioElement);
+
+       let submitBtn = document.createElement("button");
+       submitBtn.type = "sumbit";
+       submitBtn.classList.add("btn");
+       submitBtn.classList.add("btn-primary");
+       let submitBtnText = document.createTextNode("Apply changes");
+       submitBtn.appendChild(submitBtnText);
+
+       form.appendChild(titleElement);
+       form.appendChild(statusElement);
+       form.appendChild(submitBtn);
+
+         TODO_EDIT_FORM !== null && EDIT_FORM_HOLDER.removeChild(TODO_EDIT_FORM);
+
+         EDIT_FORM_HOLDER.appendChild(form) != null;
+     
+
+       form.onsubmit = (event) => {
+         event.preventDefault();
+         const TODO_EDIT_FORM = document.querySelector("#todo-edit-form") || null;
+         //console.log(TODO_EDIT_FORM);
+         let title = event.target[0].value;
+         let yes = event.target[1].checked;
+
+         fetch(`https://jsonplaceholder.typicode.com/todo/${todoID}`,{
+           method: "PUT",
+           body: JSON.stringify({
+             id: todoID,
+             title: (title != '' || title.length > 3) && title,
+             compeleted: yes ? true: false,
+             userId,
+           }),
+           headers: {
+             "Content-type": "application/json; charset=UTF-8",
+           },
+         })
+         .then((response) => response.json())
+         .then((json) => {
+           //console.log(json)
+           if(json.id){
+             TODO_EDIT_FORM != null && EDIT_FORM_HOLDER.removeChild(TODO_EDIT_FORM);
+             alert(`Viola! #${todoID} is updated to ${json.title}`)
+           }
+         }).catch(error => console.error(error))
+       };
+      }
+     //console.log(json)
+  })
+
+  //console.log(todoID)
 }
 
 
@@ -191,3 +320,5 @@ function validate(title) {
     );
   });
 }) ();
+
+//You can also do API calls using a JavaScript known  as Axios
