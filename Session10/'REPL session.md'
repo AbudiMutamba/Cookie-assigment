@@ -1,0 +1,15 @@
+let fname = Abudi
+let lname = Mutamba
+let fullname = `${fname} ${lname}
+console.log(fullname)
+
+let fname = Abudi
+let lname = Mutamba
+let fullname = `${fname} ${lname}
+console.log(fullname)
+
+
+
+let fname = Abudi
+let lname = Mutamba
+let fullname = `${fname} ${lname}`
