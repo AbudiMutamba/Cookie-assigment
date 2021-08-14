@@ -1,10 +1,10 @@
 
  function myCookieFunction () {
-   let today_Date = new Date()
-     today_Date.setDate(today_Date.getDate() + 90)
-     let expire =  "expires=" + today_Date.toUTCString();
-     document.cookie= ` DATE=${today_Date}; expires=${expire}; path=/Enter-Country`
-     let cookieValue = document.cookie
-       console.log(cookieValue)
+   let today_Date = document.getElementById('myinput')
+    
+     let expire =  "expires=" + (today_Date.Date() + 90)
+     document.cookie= ` DA=${today_Date}; expires=${expire}`
+    //  let cookieValue = document.cookie
+    //    console.log(cookieValue)
     }
   
