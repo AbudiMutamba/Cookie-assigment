@@ -32,6 +32,7 @@ const readline = require ("readline").createInterface({
 readline.question(`Enter Quit|quit|q|Q to close connection \n`, (input) => {
     let accepted = ["Quit", "quit", "q", "Q"];
     accepted.includes(input) ? process.kill(process.pid, "SIGTERM") : console.log(`You entered ${input}`)
+    readline.close()
 })
 
 // readline.question(`What's your name?`,name => {
